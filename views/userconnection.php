@@ -17,9 +17,9 @@
                 <span></span>
                 <label>Password</label>
             </div>
-            <input type="submit" value="Login">
+            <input type="submit" value="Connexion">
             <div class="signup_link">
-                <p>Pas encore de compte ?<a href="#">S'inscrire</a></p>
+                <p>Pas encore de compte ?<a href="../controllers/controller-userinscription.php">S'inscrire</a></p>
             </div>
         </form>
     </div>
