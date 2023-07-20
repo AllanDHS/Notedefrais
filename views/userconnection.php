@@ -8,12 +8,14 @@
         <h1>Connexion</h1>
         <form action="" method="post">
             <div class="txt_field">
-                <input type="email" name="email" id="email" required>
+                <input type="email" name="login" id="login" >
+                <span class="error"><?= $errors['login'] ?? '' ?></span>
                 <span></span>
                 <label>Email</label>
             </div>
             <div class="txt_field">
-                <input type="password" name="password" id="password" required>
+                <input type="password" name="password" id="password" >
+                <span class="error"><?= $errors['password'] ?? '' ?></span>
                 <span></span>
                 <label>Password</label>
             </div>
