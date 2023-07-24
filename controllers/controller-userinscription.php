@@ -48,7 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // verification du format
         } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = 'Mauvais format';
+            // verification si l'email existe deja dans la bdd
+        } else if (Employes::checkLogin($email)) {
+            $errors['email'] = 'Cet email existe déjà';
         }
+            
+
+       
     }
 
     // Vérification de l'input password

@@ -14,7 +14,6 @@ class Employes{
      * @param array $inputs Tableau contenant les données du formulaire
      * @return bool Retourne true si l'utilisateur a bien été ajouté, false si KO
      */
-
     public static function addUser(array $inputs): bool{
 
         try{
@@ -49,8 +48,7 @@ class Employes{
      * @param string $login le login à vérifier
      * @return bool true si le login existe, false sinon
      */
-    public static function checkLogin(string $login): bool
-    {
+    public static function checkLogin(string $login): bool{
 
         try {
             $pdo = Database::createInstancePDO();
@@ -75,8 +73,7 @@ class Employes{
      * @param string $password le mot de passe à vérifier
      * @return bool true si le mot de passe correspond au login, false sinon
      */
-    public static function checkPassword(string $login, string $password): bool
-    {
+    public static function checkPassword(string $login, string $password): bool{
 
         try {
             $pdo = Database::createInstancePDO(); // Création d'une instance PDO
@@ -97,6 +94,32 @@ class Employes{
             return false;
         }
     }
+
+    /**  
+     * permet de verifier si le mail existe dans la base de données
+     * @param string $email le mail à vérifier
+     * @return bool true si le mail existe, false sinon
+     */
+    public static function checkMail(string $email): bool{
+
+        try {
+            $pdo = Database::createInstancePDO();
+            $sql = "SELECT * FROM `employes` WHERE `email_address` = :email"; // marqueur nominatif
+            $stmt = $pdo->prepare($sql); // on prepare la requete
+            $stmt->bindValue(':email', Form::safeData($email), PDO::PARAM_STR); // on associe le marqueur nominatif à la variable $login
+            $stmt->execute(); // on execute la requete
+
+            // A l'aide d'une ternaire, nous vérifions si nous avons un résultat à l'aide de la méthode rowCount()
+            // Si le résultat est différent de 0, nous récupérons les données avec la méthode fetch(), sinon nous retournons false
+            $stmt->rowCount() != 0 ? $result = true : $result = false;
+            return $result;
+        } catch (PDOException $e) {
+            // echo 'Erreur : ' . $e->getMessage();
+            return false;
+        }
+    }
+
+
 }
 
 
