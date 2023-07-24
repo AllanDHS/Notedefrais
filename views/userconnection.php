@@ -6,7 +6,7 @@
 <div class="bodyForm">
     <div class="conter">
         <h1>Connexion</h1>
-        <form action="" method="post">
+        <form action="#" method="post">
             <div class="txt_field">
                 <input type="email" name="login" id="login" >
                 <span class="error"><?= $errors['login'] ?? '' ?></span>

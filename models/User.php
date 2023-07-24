@@ -28,7 +28,8 @@ class Employes{
             $stmt->bindParam(':nom', $inputs['lastname']);
             $stmt->bindParam(':prenom', $inputs['firstname']);
             $stmt->bindParam(':email', $inputs['email']);
-            $stmt->bindParam(':password', password_hash($inputs['password'],PASSWORD_DEFAULT));
+            $password = password_hash($inputs['password'],PASSWORD_DEFAULT);
+            $stmt->bindParam(':password', $password);
             $stmt->bindParam(':phone', $inputs['phone']);
 
 
@@ -53,7 +54,7 @@ class Employes{
 
         try {
             $pdo = Database::createInstancePDO();
-            $sql = "SELECT * FROM `employes` WHERE `address_mail` = :login"; // marqueur nominatif
+            $sql = "SELECT * FROM `employes` WHERE `email_address` = :login"; // marqueur nominatif
             $stmt = $pdo->prepare($sql); // on prepare la requete
             $stmt->bindValue(':login', Form::safeData($login), PDO::PARAM_STR); // on associe le marqueur nominatif à la variable $login
             $stmt->execute(); // on execute la requete
@@ -79,14 +80,14 @@ class Employes{
 
         try {
             $pdo = Database::createInstancePDO(); // Création d'une instance PDO
-            $sql = "SELECT * FROM `employes` WHERE `address_mail` = :login"; // marqueur nominatif :login
+            $sql = "SELECT * FROM `employes` WHERE `email_address` = :login"; // marqueur nominatif :login
             $stmt = $pdo->prepare($sql); // on prepare la requete
             $stmt->bindValue(':login', Form::safeData($login), PDO::PARAM_STR); // on associe le marqueur nominatif à la variable $login
             $stmt->execute(); // on execute la requete
 
             $result = $stmt->fetch(PDO::FETCH_ASSOC); // on recupère le resultat à l'aide d'un fetch
-
-            if (password_verify($password, $result['use_password'])) {
+            $passwordVerify = password_verify($password, $result['password']); // on compare le mot de passe saisi avec le mot de passe hashé de la base de données
+            if ($passwordVerify) {
                 return true; // si password OK
             } else {
                 return false; // si paswword différent
