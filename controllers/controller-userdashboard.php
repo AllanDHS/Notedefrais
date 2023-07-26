@@ -4,6 +4,6 @@
 
 session_start();
 
-var_dump($_SESSION);
 
-include "../views/home.php";
+
+include "../views/userdashboard.php";

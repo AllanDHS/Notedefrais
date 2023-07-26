@@ -5,11 +5,11 @@
 
 <div class="bodyForm">
     <div class="conter">
-        <h1>Connexion</h1>
+        <h2>Connexion</h2>
         <form action="#" method="post">
             <div class="txt_field">
-                <input type="email" name="login" id="login" >
-                <span class="error"><?= $errors['login'] ?? '' ?></span>
+                <input type="email" name="email" id="email" >
+                <span class="error"><?= $errors['email'] ?? '' ?></span>
                 <span></span>
                 <label>Email</label>
             </div>

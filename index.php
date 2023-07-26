@@ -1,4 +1,4 @@
 <?php
-header("Location: controllers/controller-userconnection.php");
+header("Location: controllers/controller-home.php");
 exit;
 ?>

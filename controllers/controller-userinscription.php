@@ -4,7 +4,7 @@ session_start();
 
 include '../config.php';
 require_once '../helpers/Database.php';
-require_once '../models/user.php'; 
+require_once '../models/Employes.php'; 
 
 include '../helpers/Form.php';
 
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = 'Mauvais format';
             // verification si l'email existe deja dans la bdd
-        } else if (Employes::checkLogin($email)) {
+        } else if (Employes::checkIfMailExist($email)) {
             $errors['email'] = 'Cet email existe déjà';
         }
             

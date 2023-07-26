@@ -1,6 +1,7 @@
 <?php
 
-class Employes{
+class Employes
+{
     private int $id;
     private string $nom;
     private string $prenom;
@@ -14,9 +15,10 @@ class Employes{
      * @param array $inputs Tableau contenant les données du formulaire
      * @return bool Retourne true si l'utilisateur a bien été ajouté, false si KO
      */
-    public static function addUser(array $inputs): bool{
+    public static function addUser(array $inputs): bool
+    {
 
-        try{
+        try {
             // Création d'une instance PDO a la connexion de la bdd
             $pdo = Database::createInstancePDO();
             // Requête SQL pour ajouter un utilisateur
@@ -27,42 +29,16 @@ class Employes{
             $stmt->bindParam(':nom', $inputs['lastname']);
             $stmt->bindParam(':prenom', $inputs['firstname']);
             $stmt->bindParam(':email', $inputs['email']);
-            $password = password_hash($inputs['password'],PASSWORD_DEFAULT);
+            $password = password_hash($inputs['password'], PASSWORD_DEFAULT);
             $stmt->bindParam(':password', $password);
             $stmt->bindParam(':phone', $inputs['phone']);
 
 
             // Execution de la requête
             return $stmt->execute();
-            
-        }  catch (PDOException $e) {
+        } catch (PDOException $e) {
             // on affiche le message d'erreur
             echo "Erreur : " . $e->getMessage();
-            return false;
-        }
-
-    }
-
-    /**
-     * Permet de vérifier que le login existe dans la base de données
-     * @param string $login le login à vérifier
-     * @return bool true si le login existe, false sinon
-     */
-    public static function checkLogin(string $login): bool{
-
-        try {
-            $pdo = Database::createInstancePDO();
-            $sql = "SELECT * FROM `employes` WHERE `email_address` = :login"; // marqueur nominatif
-            $stmt = $pdo->prepare($sql); // on prepare la requete
-            $stmt->bindValue(':login', Form::safeData($login), PDO::PARAM_STR); // on associe le marqueur nominatif à la variable $login
-            $stmt->execute(); // on execute la requete
-
-            // A l'aide d'une ternaire, nous vérifions si nous avons un résultat à l'aide de la méthode rowCount()
-            // Si le résultat est différent de 0, nous récupérons les données avec la méthode fetch(), sinon nous retournons false
-            $stmt->rowCount() != 0 ? $result = true : $result = false;
-            return $result;
-        } catch (PDOException $e) {
-            // echo 'Erreur : ' . $e->getMessage();
             return false;
         }
     }
@@ -73,7 +49,8 @@ class Employes{
      * @param string $password le mot de passe à vérifier
      * @return bool true si le mot de passe correspond au login, false sinon
      */
-    public static function checkPassword(string $login, string $password): bool{
+    public static function checkPassword(string $login, string $password): bool
+    {
 
         try {
             $pdo = Database::createInstancePDO(); // Création d'une instance PDO
@@ -100,7 +77,8 @@ class Employes{
      * @param string $email le mail à vérifier
      * @return bool true si le mail existe, false sinon
      */
-    public static function checkMail(string $email): bool{
+    public static function checkIfMailExist(string $email): bool
+    {
 
         try {
             $pdo = Database::createInstancePDO();
@@ -108,6 +86,7 @@ class Employes{
             $stmt = $pdo->prepare($sql); // on prepare la requete
             $stmt->bindValue(':email', Form::safeData($email), PDO::PARAM_STR); // on associe le marqueur nominatif à la variable $login
             $stmt->execute(); // on execute la requete
+
 
             // A l'aide d'une ternaire, nous vérifions si nous avons un résultat à l'aide de la méthode rowCount()
             // Si le résultat est différent de 0, nous récupérons les données avec la méthode fetch(), sinon nous retournons false
@@ -118,8 +97,24 @@ class Employes{
             return false;
         }
     }
-
-
+    /**
+     * Permet de récupérer les informations d'un utilisateur à l'aide de son email
+     * @param string $email l'email de l'utilisateur
+     * @return array|bool Retourne un tableau contenant les informations de l'utilisateur, false si KO
+     */
+    public static function getInfoEmployes(string $email): array
+    {
+        try {
+            $pdo = Database::createInstancePDO();
+            $sql = "SELECT * FROM `employes` WHERE `email_address` = :email"; // marqueur nominatif
+            $stmt = $pdo->prepare($sql); // on prepare la requete
+            $stmt->bindValue(':email', Form::safeData($email), PDO::PARAM_STR); // on associe le marqueur nominatif à la variable $login
+            $stmt->execute(); // on execute la requete
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            // echo 'Erreur : ' . $e->getMessage();
+            return false;
+        }
+    }
 }
-
-

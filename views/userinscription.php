@@ -5,7 +5,7 @@
 
     <div class="conter">
     <?php if ($showForm) { ?>
-        <h1>Inscription</h1>
+        <h2>Inscription</h2>
         <form action="#" method="post">
             <div class="txt_field">
                 <input type="text" name="firstname" id="firstname">
