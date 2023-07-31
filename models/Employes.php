@@ -22,7 +22,7 @@ class Employes
             // Création d'une instance PDO a la connexion de la bdd
             $pdo = Database::createInstancePDO();
             // Requête SQL pour ajouter un utilisateur
-            $sql = "INSERT INTO `employes` (`lastname`, `firstname`, `email_address`, `password`, `phone_number`) VALUES (:nom, :prenom, :email, :password, :phone)";
+            $sql = "INSERT INTO `employes` (`lastname`, `firstname`, `email_adress`, `password`, `phone_number`) VALUES (:nom, :prenom, :email, :password, :phone)";
             // Préparation de la requête
             $stmt = $pdo->prepare($sql);
             // Bind des paramètres pour eviter les injections SQL
@@ -54,7 +54,7 @@ class Employes
 
         try {
             $pdo = Database::createInstancePDO(); // Création d'une instance PDO
-            $sql = "SELECT * FROM `employes` WHERE `email_address` = :login"; // marqueur nominatif :login
+            $sql = "SELECT * FROM `employes` WHERE `email_adress` = :login"; // marqueur nominatif :login
             $stmt = $pdo->prepare($sql); // on prepare la requete
             $stmt->bindValue(':login', Form::safeData($login), PDO::PARAM_STR); // on associe le marqueur nominatif à la variable $login
             $stmt->execute(); // on execute la requete
@@ -82,7 +82,7 @@ class Employes
 
         try {
             $pdo = Database::createInstancePDO();
-            $sql = "SELECT * FROM `employes` WHERE `email_address` = :email"; // marqueur nominatif
+            $sql = "SELECT * FROM `employes` WHERE `email_adress` = :email"; // marqueur nominatif
             $stmt = $pdo->prepare($sql); // on prepare la requete
             $stmt->bindValue(':email', Form::safeData($email), PDO::PARAM_STR); // on associe le marqueur nominatif à la variable $login
             $stmt->execute(); // on execute la requete
@@ -106,7 +106,7 @@ class Employes
     {
         try {
             $pdo = Database::createInstancePDO();
-            $sql = "SELECT * FROM `employes` WHERE `email_address` = :email"; // marqueur nominatif
+            $sql = "SELECT * FROM `employes` WHERE `email_adress` = :email"; // marqueur nominatif
             $stmt = $pdo->prepare($sql); // on prepare la requete
             $stmt->bindValue(':email', Form::safeData($email), PDO::PARAM_STR); // on associe le marqueur nominatif à la variable $login
             $stmt->execute(); // on execute la requete

@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['Employes'] = Employes::getInfoEmployes($email);
             unset($_SESSION['Employes']['password']);  
 
-            header('Location: ../controllers/controller-home.php');
+            header('Location: ../controllers/controller-userdashboard.php');
             exit;
         } else {
             $errors['password'] = 'Mauvais mot de passe';
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 // Ferme la session
-session_destroy();
+// session_destroy();
 
 
 

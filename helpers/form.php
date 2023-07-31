@@ -14,4 +14,8 @@ class Form
         $value = htmlspecialchars($value);
         return $value;
     }
+    public static function formatDateUsToFr($dateUS): string
+    {
+        return implode('/', array_reverse(explode('-', $dateUS)));
+    }
 }

@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['firstname'])) {
 
         if (empty($_POST['firstname'])) {
-            $errors['firstname'] = 'Le prénom est obligatoire';
+            $errors['firstname'] = 'Champs obligatoire';
         } else if (!preg_match(REGEX_NAME, $_POST['firstname'])) {
             $errors['firstname'] = 'Le prénom n\'est pas valide';
         }
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['lastname'])) {
 
         if (empty($_POST['lastname'])) {
-            $errors['lastname'] = 'Le nom est obligatoire';
+            $errors['lastname'] = 'Champs obligatoire';
         } else if (!preg_match(REGEX_NAME, $_POST['lastname'])) {
             $errors['lastname'] = 'Le nom n\'est pas valide';
         }
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors['password'] = 'Champs obligatoire';
             // verification du format
         } else if (strlen($password) < 8) {
-            $errors['password'] = 'Mauvais format';
+            $errors['password'] = 'Mot de passe trop court';
         }
     }
 
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $showForm = false;
         } else {
             // nous mettons en place un message d'erreur dans le cas où la requête échouée
-            $errors['bdd'] = 'Une erreur est survenue lors de l\'ajout de l\'animal';
+            $errors['bdd'] = 'Une erreur est survenue lors de l\'ajout de l\'employe';
         }
     }
 }

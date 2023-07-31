@@ -1,5 +1,5 @@
 <?php include "components/header.php"; ?>
-<?php include "components/navbar.php"; ?>
+
 
 
 
@@ -33,7 +33,7 @@
                 <label>Téléphone *</label>
             </div>
             <div class="txt_field">
-                <input type="password" name="password" id="password">
+                <input type="password" name="password" id="password" placeholder="Minimun 8 caractères">
                 <span class="error"><?= $errors['password'] ?? '' ?></span>
                 <span></span>
                 <label>Mot de passe *</label>
