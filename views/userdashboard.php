@@ -14,7 +14,7 @@
 
     <div class="maincontent">
         <div class="liste">
-            <?php var_dump(Frais::getFrais($_SESSION['Employes']['id']))?>
+            <?php var_dump(Frais::getFrais(3))?>
             <?php foreach (Frais::getFrais($_SESSION['Employes']['id']) as $expense) { ?>
             
 
